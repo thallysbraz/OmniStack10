@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+const routes = require("./routes");
+
 const app = express();
 const PORT = 3000;
 
@@ -24,17 +26,8 @@ mongoose
     console.log("error ao conectar no banco " + err);
   });
 
-/*  Tipos de parametros
-    Query Params: req.query (Filtros, ordenação, paginação ...)
-    Route Params: req.params (Identificar recurso no put ou delete)
-    Body: req.body (Dados para criar ou alterar um regitro)
-*/
 //rotas
-
-//rota raiz
-app.get("/", (req, res) => {
-  res.json({ msg: "Server estartado" });
-});
+app.use(routes);
 
 app.listen(PORT, () => {
   console.log("server startado, na porta: " + PORT);
