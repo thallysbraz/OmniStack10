@@ -17,9 +17,9 @@ module.exports = {
         $near: {
           $geometry: {
             type: "Point",
-            coordinates: [longitude, latitude]
+            coordinates: [longitude, latitude] // buscando longitude e latitude
           },
-          $maxDistance: 10000
+          $maxDistance: 10000 // raio maximo de busca
         }
       }
     }).sort({ name: 1 });
