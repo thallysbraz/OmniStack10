@@ -10,9 +10,19 @@ module.exports = {
 
     const devs = await Dev.find({
       techs: {
-        $in: techsArray
+        $in: techsArray // busca por tecnologia
+      },
+      location: {
+        //buscando por localização
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [longitude, latitude]
+          },
+          $maxDistance: 10000
+        }
       }
-    });
+    }).sort({ name: 1 });
     return res.json({ devs });
   }
 };
