@@ -73,5 +73,14 @@ module.exports = {
     } catch (Error) {
       res.json({ error: Error });
     }
+  },
+
+  // implementar
+
+  async update() {
+    //implementar
+  },
+  async destroy() {
+    //implementar
   }
 };
