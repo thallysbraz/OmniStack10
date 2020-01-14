@@ -79,6 +79,7 @@ module.exports = {
 
   async update() {
     //implementar
+    // NÃO atulizar git user name
   },
   async destroy() {
     //implementar
