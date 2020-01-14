@@ -1,6 +1,7 @@
 const axios = require("axios");
 
 const Dev = require("../models/Dev");
+const parseStringAsArray = require("../utils/parseStringAsArray");
 
 //index, show, store, update, destroy
 
@@ -49,7 +50,7 @@ module.exports = {
         //split na virgula pra separar as tecnologias
         //map para percorrer todas as techs
         //tech.trim pra retirar os espaços
-        const techsArray = techs.split(",").map(tech => tech.trim());
+        const techsArray = parseStringAsArray(techs);
 
         //convertendo latitude e longitude
         const location = {

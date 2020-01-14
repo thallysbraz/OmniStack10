@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
 const DevController = require("./controllers/DevController");
-
+const SearchController = require("./controllers/SearchController");
 const routes = Router();
 
 /*  Tipos de parametros
@@ -12,13 +12,13 @@ const routes = Router();
 
 //rotas
 
-//rota raiz
+//rota raiz - somente de teste
 routes.get("/", (req, res) => {
   res.json({ msg: "Server estartado" });
 });
 
-//rota de cadastrar dev
-routes.post("/devs", DevController.store);
-routes.get("/devs", DevController.index);
+routes.post("/devs", DevController.store); //rota de cadastrar dev
+routes.get("/devs", DevController.index); //rota de listar todos os dev
+routes.get("/search", SearchController.index); //buscar dev por distancia e filtrar por tech
 
 module.exports = routes;
