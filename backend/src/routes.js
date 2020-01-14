@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const axios = require("axios");
 
+const Dev = require("./models/Dev");
+
 const routes = Router();
 
 /*  Tipos de parametros
@@ -20,10 +22,10 @@ routes.get("/", (req, res) => {
 routes.post("/devs", async (req, res) => {
   try {
     //Recebendo user name do github
-    const { github_username } = req.body;
+    const { github_username, techs } = req.body;
 
     //fazendo busca na api do github e config proxy no axios
-    const response = await axios.get(
+    const apiResponse = await axios.get(
       `https://api.github.com/users/${github_username}`,
       {
         proxy: {
@@ -33,8 +35,30 @@ routes.post("/devs", async (req, res) => {
         }
       }
     );
-    console.log(response.data);
-    res.json(response.data);
+    //pegando somente os dados necessario no github
+    /*  {name = login} e a mesma coisa que:
+        if(name == undefined){
+        name = login
+        }
+    */
+    const { name = login, avatar_url, bio } = apiResponse.data;
+
+    //Convertendo techs de String para Array
+    //split na virgula pra separar as tecnologias
+    //map para percorrer todas as techs
+    //tech.trim pra retirar os espaços
+    const techsArray = techs.split(",").map(tech => tech.trim());
+
+    //salvando Dev no banco
+    const dev = await Dev.create({
+      github_username,
+      name,
+      avatar_url,
+      bio,
+      techs: techsArray
+    });
+
+    res.json(dev);
   } catch (Error) {
     res.json({ error: Error });
   }
