@@ -22,7 +22,7 @@ routes.get("/", (req, res) => {
 routes.post("/devs", async (req, res) => {
   try {
     //Recebendo user name do github
-    const { github_username, techs } = req.body;
+    const { github_username, techs, latitude, longitude } = req.body;
 
     //fazendo busca na api do github e config proxy no axios
     const apiResponse = await axios.get(
@@ -49,13 +49,20 @@ routes.post("/devs", async (req, res) => {
     //tech.trim pra retirar os espaços
     const techsArray = techs.split(",").map(tech => tech.trim());
 
+    //convertendo latitude e longitude
+    const location = {
+      type: "Point",
+      coordinates: [longitude, latitude]
+    };
+
     //salvando Dev no banco
     const dev = await Dev.create({
       github_username,
       name,
       avatar_url,
       bio,
-      techs: techsArray
+      techs: techsArray,
+      location
     });
 
     res.json(dev);
