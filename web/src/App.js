@@ -5,6 +5,9 @@ import "./App.css";
 import "./Sidebar.css";
 import "./Main.css";
 
+//importando arquivo para fazer chamada a API
+import api from "./services/api";
+
 //navigator.geolocation.getCurrentPosition
 function App() {
   //estado pra armazenar github_username e techs
@@ -32,11 +35,25 @@ function App() {
     );
   }, []);
 
+  async function handleAddDev(e) {
+    e.preventDefault();
+
+    const response = await api.post("/devs", {
+      github_username,
+      techs,
+      latitude,
+      longitude
+    });
+    console.log(response.data);
+  }
+
   return (
     <div id="app">
+      {/* Aside para fazer o form */}
       <aside>
         <strong>Cadastrar</strong>
-        <form>
+        <form onSubmit={handleAddDev}>
+          {/* Input github_username */}
           <div className="input-block">
             <label htmlFor="github_username">Usuário do Github</label>
             <input
@@ -47,7 +64,7 @@ function App() {
               onChange={e => setGithubUsername(e.target.value)}
             />
           </div>
-
+          {/* Input Technologias */}
           <div className="input-block">
             <label htmlFor="techs">Tecnologias</label>
             <input
@@ -58,7 +75,7 @@ function App() {
               onChange={e => setTechs(e.target.value)}
             />
           </div>
-
+          {/* Input latitude e longitude */}
           <div className="input-group">
             <div className="input-block">
               <label htmlFor="latitude">Latitude</label>
@@ -88,6 +105,7 @@ function App() {
           <button type="submit">Salvar</button>
         </form>
       </aside>
+      {/* Main para mostrar lista */}
       <main>
         <ul>
           <li className="dev-item">
