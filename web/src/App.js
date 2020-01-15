@@ -10,6 +10,11 @@ import api from "./services/api";
 
 //navigator.geolocation.getCurrentPosition
 function App() {
+  /* ----- Estados dos componentes ----- */
+
+  //estado pra armazenar lista de Devs
+  const [devs, setDevs] = useState([]);
+
   //estado pra armazenar github_username e techs
   const [github_username, setGithubUsername] = useState("");
   const [techs, setTechs] = useState("");
@@ -17,6 +22,8 @@ function App() {
   //estado pra armazenar valor de latitude e longitude
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+
+  /* ----- Codigo/Funções ----- */
 
   //função para pegar as coordenadas de latitude e longitude
   useEffect(() => {
@@ -35,6 +42,16 @@ function App() {
     );
   }, []);
 
+  //função para buscar Dev na API
+  useEffect(() => {
+    async function loadDevs() {
+      const response = await api.get("/devs"); //chamada a API na rota /devs
+      setDevs(response.data); //armazenando dados
+    }
+    loadDevs();
+  }, []);
+
+  //função para salvar dev na aplicação.
   async function handleAddDev(e) {
     e.preventDefault();
 
@@ -44,7 +61,8 @@ function App() {
       latitude,
       longitude
     });
-    console.log(response.data);
+    setGithubUsername("");
+    setTechs("");
   }
 
   return (
@@ -108,85 +126,24 @@ function App() {
       {/* Main para mostrar lista */}
       <main>
         <ul>
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars1.githubusercontent.com/u/39064364?s=460&v=4"
-                alt="Thallys Braz"
-              />
-              <div className="user-info">
-                <strong>Thallys Braz</strong>
-                <span>Node.js, React</span>
-              </div>
-            </header>
-            <p>
-              Student of Software Engineering at the University of Brasília -
-              FGA
-            </p>
-            <a href="https://github.com/thallysbraz">
-              Acessar perfil no Github
-            </a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars1.githubusercontent.com/u/39064364?s=460&v=4"
-                alt="Thallys Braz"
-              />
-              <div className="user-info">
-                <strong>Thallys Braz</strong>
-                <span>Node.js, React</span>
-              </div>
-            </header>
-            <p>
-              Student of Software Engineering at the University of Brasília -
-              FGA
-            </p>
-            <a href="https://github.com/thallysbraz">
-              Acessar perfil no Github
-            </a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars1.githubusercontent.com/u/39064364?s=460&v=4"
-                alt="Thallys Braz"
-              />
-              <div className="user-info">
-                <strong>Thallys Braz</strong>
-                <span>Node.js, React</span>
-              </div>
-            </header>
-            <p>
-              Student of Software Engineering at the University of Brasília -
-              FGA
-            </p>
-            <a href="https://github.com/thallysbraz">
-              Acessar perfil no Github
-            </a>
-          </li>
-
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars1.githubusercontent.com/u/39064364?s=460&v=4"
-                alt="Thallys Braz"
-              />
-              <div className="user-info">
-                <strong>Thallys Braz</strong>
-                <span>Node.js, React</span>
-              </div>
-            </header>
-            <p>
-              Student of Software Engineering at the University of Brasília -
-              FGA
-            </p>
-            <a href="https://github.com/thallysbraz">
-              Acessar perfil no Github
-            </a>
-          </li>
+          {devs.map(dev => (
+            <li key={dev._id} className="dev-item">
+              <header>
+                <img src={dev.avatar_url} alt={dev.name} />
+                <div className="user-info">
+                  <strong>{dev.name}</strong>
+                  <span>{dev.techs.join(", ")}</span>
+                </div>
+              </header>
+              <p>{dev.bio}</p>
+              <a
+                target="_blank"
+                href={`https://github.com/${dev.github_username}`}
+              >
+                Acessar perfil no Github
+              </a>
+            </li>
+          ))}
         </ul>
       </main>
     </div>
