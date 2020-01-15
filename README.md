@@ -1,6 +1,4 @@
-# OmniStack10
-
-# DevRadar
+# OmniStack10 - DevRadar
 
 ## Sobre o repositório
 
