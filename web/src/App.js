@@ -3,6 +3,7 @@ import React from "react";
 import "./global.css";
 import "./App.css";
 import "./Sidebar.css";
+import "./Main.css";
 
 function App() {
   return (
@@ -35,7 +36,89 @@ function App() {
           <button type="submit">Salvar</button>
         </form>
       </aside>
-      <main></main>
+      <main>
+        <ul>
+          <li className="dev-item">
+            <header>
+              <img
+                src="https://avatars1.githubusercontent.com/u/39064364?s=460&v=4"
+                alt="Thallys Braz"
+              />
+              <div className="user-info">
+                <strong>Thallys Braz</strong>
+                <span>Node.js, React</span>
+              </div>
+            </header>
+            <p>
+              Student of Software Engineering at the University of Brasília -
+              FGA
+            </p>
+            <a href="https://github.com/thallysbraz">
+              Acessar perfil no Github
+            </a>
+          </li>
+
+          <li className="dev-item">
+            <header>
+              <img
+                src="https://avatars1.githubusercontent.com/u/39064364?s=460&v=4"
+                alt="Thallys Braz"
+              />
+              <div className="user-info">
+                <strong>Thallys Braz</strong>
+                <span>Node.js, React</span>
+              </div>
+            </header>
+            <p>
+              Student of Software Engineering at the University of Brasília -
+              FGA
+            </p>
+            <a href="https://github.com/thallysbraz">
+              Acessar perfil no Github
+            </a>
+          </li>
+
+          <li className="dev-item">
+            <header>
+              <img
+                src="https://avatars1.githubusercontent.com/u/39064364?s=460&v=4"
+                alt="Thallys Braz"
+              />
+              <div className="user-info">
+                <strong>Thallys Braz</strong>
+                <span>Node.js, React</span>
+              </div>
+            </header>
+            <p>
+              Student of Software Engineering at the University of Brasília -
+              FGA
+            </p>
+            <a href="https://github.com/thallysbraz">
+              Acessar perfil no Github
+            </a>
+          </li>
+
+          <li className="dev-item">
+            <header>
+              <img
+                src="https://avatars1.githubusercontent.com/u/39064364?s=460&v=4"
+                alt="Thallys Braz"
+              />
+              <div className="user-info">
+                <strong>Thallys Braz</strong>
+                <span>Node.js, React</span>
+              </div>
+            </header>
+            <p>
+              Student of Software Engineering at the University of Brasília -
+              FGA
+            </p>
+            <a href="https://github.com/thallysbraz">
+              Acessar perfil no Github
+            </a>
+          </li>
+        </ul>
+      </main>
     </div>
   );
 }
